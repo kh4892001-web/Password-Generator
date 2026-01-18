@@ -2,33 +2,93 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
+
+    <!-- IMPORTANT for mobile view -->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
     <title>Password Generator</title>
+
     <style>
         body {
             font-family: Arial, sans-serif;
+            background: #f4f4f4;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            margin: 0;
+        }
+
+        .container {
+            background: white;
+            width: 90%;
+            max-width: 360px;
+            padding: 20px;
+            border-radius: 12px;
+            box-shadow: 0 0 15px rgba(0,0,0,0.1);
             text-align: center;
-            margin-top: 50px;
         }
-        input, button {
-            padding: 10px;
+
+        h1 {
+            font-size: 22px;
+            margin-bottom: 20px;
+        }
+
+        input {
+            width: 100%;
+            padding: 12px;
             font-size: 16px;
+            border-radius: 8px;
+            border: 1px solid #ccc;
+            outline: none;
         }
+
+        button {
+            width: 100%;
+            margin-top: 15px;
+            padding: 12px;
+            font-size: 16px;
+            border: none;
+            border-radius: 8px;
+            background: #007bff;
+            color: white;
+            cursor: pointer;
+        }
+
+        button:active {
+            transform: scale(0.98);
+        }
+
         #password {
             margin-top: 20px;
+            padding: 10px;
+            font-size: 18px;
             font-weight: bold;
-            font-size: 20px;
+            word-break: break-all;
+        }
+
+        /* Tablet & Desktop */
+        @media (min-width: 768px) {
+            .container {
+                max-width: 420px;
+            }
+            h1 {
+                font-size: 26px;
+            }
         }
     </style>
 </head>
 <body>
 
-    <h1>Password Generator</h1>
+    <div class="container">
+        <h1>Password Generator</h1>
 
-    <input type="number" id="length" placeholder="Password length">
-    <br><br>
-    <button onclick="generatePassword()">Generate</button>
+        <input type="number" id="length" placeholder="Password length (min 3)">
 
-    <div id="password"></div>
+        <button onclick="generatePassword()">Generate Password</button>
+
+        <div id="password"></div>
+    </div>
 
     <script>
         function generatePassword() {
@@ -37,10 +97,10 @@
             const symbols = "!@#$%^&*()_+{}[]<>?,.";
 
             const length = document.getElementById("length").value;
+            const output = document.getElementById("password");
 
             if (length < 3) {
-                document.getElementById("password").innerText =
-                    "Password length must be at least 3";
+                output.innerText = "Password length must be at least 3";
                 return;
             }
 
@@ -57,8 +117,7 @@
 
             password = password.sort(() => Math.random() - 0.5).join("");
 
-            document.getElementById("password").innerText =
-                "Your password is: " + password;
+            output.innerText = password;
         }
     </script>
 
