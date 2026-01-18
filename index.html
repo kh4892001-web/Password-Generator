@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Password Generator</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+            margin-top: 50px;
+        }
+        input, button {
+            padding: 10px;
+            font-size: 16px;
+        }
+        #password {
+            margin-top: 20px;
+            font-weight: bold;
+            font-size: 20px;
+        }
+    </style>
+</head>
+<body>
+
+    <h1>Password Generator</h1>
+
+    <input type="number" id="length" placeholder="Password length">
+    <br><br>
+    <button onclick="generatePassword()">Generate</button>
+
+    <div id="password"></div>
+
+    <script>
+        function generatePassword() {
+            const letters = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ";
+            const numbers = "0123456789";
+            const symbols = "!@#$%^&*()_+{}[]<>?,.";
+
+            const length = document.getElementById("length").value;
+
+            if (length < 3) {
+                document.getElementById("password").innerText =
+                    "Password length must be at least 3";
+                return;
+            }
+
+            let password = [];
+            password.push(letters[Math.floor(Math.random() * letters.length)]);
+            password.push(numbers[Math.floor(Math.random() * numbers.length)]);
+            password.push(symbols[Math.floor(Math.random() * symbols.length)]);
+
+            const allChars = letters + numbers + symbols;
+
+            for (let i = 0; i < length - 3; i++) {
+                password.push(allChars[Math.floor(Math.random() * allChars.length)]);
+            }
+
+            password = password.sort(() => Math.random() - 0.5).join("");
+
+            document.getElementById("password").innerText =
+                "Your password is: " + password;
+        }
+    </script>
+
+</body>
+</html>
